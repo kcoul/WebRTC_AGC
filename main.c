@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-//采用https://github.com/mackron/dr_libs/blob/master/dr_wav.h 解码
+//SOURCE: https://github.com/mackron/dr_libs/blob/master/dr_wav.h
 #define DR_WAV_IMPLEMENTATION
 
 #include "dr_wav.h"
@@ -15,7 +15,6 @@
 #define  MIN(A, B)        ((A) < (B) ? (A) : (B))
 #endif
 
-//计时
 #include <stdint.h>
 
 #if   defined(__APPLE__)
@@ -80,7 +79,7 @@ double calcElapsed(double start, double end) {
     return took + end;
 }
 
-//写wav文件
+//wav
 void wavWrite_int16(char *filename, int16_t *buffer, size_t sampleRate, size_t totalSampleCount, unsigned int channels) {
     drwav_data_format format = {};
     format.container = drwav_container_riff;     // <-- drwav_container_riff = normal WAV files, drwav_container_w64 = Sony Wave64.
@@ -99,16 +98,16 @@ void wavWrite_int16(char *filename, int16_t *buffer, size_t sampleRate, size_t t
     }
 }
 
-//读取wav文件
+//wav
 int16_t *wavRead_int16(char *filename, uint32_t *sampleRate, uint64_t *totalSampleCount, unsigned int* channels) {
     int16_t *buffer = drwav_open_and_read_file_s16(filename, channels, sampleRate, totalSampleCount);
     if (buffer == nullptr) {
-        printf("读取wav文件失败.");
+        printf("Couldn't load wav file.");
     }
     return buffer;
 }
 
-//分割路径函数
+//
 void splitpath(const char *path, char *drv, char *dir, char *name, char *ext) {
     const char *end;
     const char *p;
@@ -181,8 +180,8 @@ int agcProcess(int16_t *buffer, uint32_t sampleRate, size_t samplesCount, int16_
     int inMicLevel, outMicLevel = -1;
     int16_t out_buffer[maxSamples];
     int16_t *out16 = out_buffer;
-    uint8_t saturationWarning = 1;                 //是否有溢出发生，增益放大以后的最大值超过了65536
-    int16_t echo = 0;                                 //增益放大是否考虑回声影响
+    uint8_t saturationWarning = 1;
+    int16_t echo = 0;
     for (int i = 0; i < nTotal; i++) {
         inMicLevel = 0;
         int nAgcRet = WebRtcAgc_Process(agcInst, (const int16_t *const *) &input, num_bands, samples,
@@ -223,17 +222,15 @@ int agcProcess(int16_t *buffer, uint32_t sampleRate, size_t samplesCount, int16_
 }
 
 void auto_gain(char *in_file, char *out_file) {
-    //音频采样率
     uint32_t sampleRate = 0;
-    //总音频采样数
     uint64_t inSampleCount = 0;
     unsigned int channels = 0;
     int16_t *inBuffer = wavRead_int16(in_file, &sampleRate, &inSampleCount, &channels);
-    //如果加载成功
     if (inBuffer != nullptr) {
-        //  kAgcModeAdaptiveAnalog  模拟音量调节
-        //  kAgcModeAdaptiveDigital 自适应增益
-        //  kAgcModeFixedDigital 固定增益
+        // Three available modes:
+        //  kAgcModeAdaptiveAnalog
+        //  kAgcModeAdaptiveDigital
+        //  kAgcModeFixedDigital
         double startTime = now();
 
         agcProcess(inBuffer, sampleRate, inSampleCount, kAgcModeAdaptiveDigital);
@@ -248,8 +245,6 @@ void auto_gain(char *in_file, char *out_file) {
 
 int main(int argc, char *argv[]) {
     printf("WebRTC Automatic Gain Control\n");
-    printf("博客:http://cpuimage.cnblogs.com/\n");
-    printf("音频自动增益\n");
     if (argc < 2)
         return -1;
     char *in_file = argv[1];
@@ -262,7 +257,7 @@ int main(int argc, char *argv[]) {
     sprintf(out_file, "%s%s%s_out%s", drive, dir, fname, ext);
     auto_gain(in_file, out_file);
 
-    printf("按任意键退出程序 \n");
-    getchar();
+    printf("Finished rendering output file. \n");
+    //getchar();
     return 0;
 }

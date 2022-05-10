@@ -1,0 +1,64 @@
+# Xcode Project
+**/*.xcodeproj/xcuserdata/
+**/*.xcworkspace/xcuserdata/
+**/*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+**/*.xcworkspace/xcshareddata/*.xccheckout
+**/*.xcworkspace/xcshareddata/*.xcscmblueprint
+.idea/
+
+# Build
+**/Builds
+**/JuceLibraryCode
+Scripts/build/
+build
+
+
+DerivedData/
+*.ipa
+
+# Other
+*~
+.DS_Store
+*.swp
+*.save
+._*
+*.bak
+
+libs/agora
+libs/aec/apple/libs/webrtc
+
+src/android/**/*.aes
+src/android/**/PinPointAPI.h
+src/android/**/PinPointDebugAPI.h
+src/android/**/PinPointAECAPI.h
+src/android/**/tensorflow
+src/android/**/curl
+src/android/**/openssl
+src/android/**/*.pem
+
+src/agora_extension/android/**/*.aes
+src/agora_extension/android/**/AgoraRtcKit
+src/agora_extension/android/**/tensorflow
+src/agora_extension/android/**/curl
+src/agora_extension/android/**/openssl
+src/agora_extension/android/**/.cxx
+src/agora_extension/android/**/agoraLibs
+
+#CMake
+build-ios
+cmake-build
+cmake-build-debug
+cmake-build-debugrpi
+cmake-build-release
+cmake-build-relwithdebinfo
+_deps
+CMakeFiles
+
+#Embedded
+libs/toolchains
+
+#Git LFS
+libs/tensorflow/apple/Debug/macos-arm64_x86_64/libtensorflow-lite.a
+
+#VS Code
+.vscode/
