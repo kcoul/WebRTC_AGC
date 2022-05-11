@@ -16,16 +16,8 @@
 #include <stdio.h>
 #endif
 
-
 #include <stdint.h>  // NOLINT(build/include)
 #include <string.h>
-
-#ifdef WEBRTC_AGC_DEBUG_DUMP
-#include <stdio.h>
-#endif
-
-#include <stdint.h>  // NOLINT(build/include)
-#include <assert.h>
 
 // allpass filter coefficients.
 static const uint16_t kResampleAllpass1[3] = {3284, 24441, 49528};
