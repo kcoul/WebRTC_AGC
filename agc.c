@@ -991,7 +991,7 @@ int16_t WebRtcAgc_ProcessVad(AgcVad *state,      // (i) VAD state
 
     // update voice activity measure (Q10)
     tmp16 = 3 << 12;
-    // TODO(bjornv): (dB - state->meanLongTerm) can overflow, e.g., in
+    // TODO: (dB - state->meanLongTerm) can overflow, e.g., in
     // ApmTest.Process unit test. Previously the macro WEBRTC_SPL_MUL_16_16()
     // was used, which did an intermediate cast to (int16_t), hence losing
     // significant bits. This cause logRatio to max out positive, rather than
@@ -1959,7 +1959,7 @@ int WebRtcAgc_Process(void *agcInst,
     }
 
     *saturationWarning = 0;
-    // TODO(minyue): PUT IN RANGE CHECKING FOR INPUT LEVELS
+    // TODO: PUT IN RANGE CHECKING FOR INPUT LEVELS
     *outMicLevel = inMicLevel;
 
 #ifdef WEBRTC_AGC_DEBUG_DUMP
@@ -2158,7 +2158,7 @@ int WebRtcAgc_Init(void *agcInst,
     if (stt->scale < 0) {
         stt->scale = 0;
     }
-    // TODO(bjornv): Investigate if we really need to scale up a small range now
+    // TODO: Investigate if we really need to scale up a small range now
     // when we have
     // a guard against zero-increments. For now, we do not support scale up (scale
     // = 0).

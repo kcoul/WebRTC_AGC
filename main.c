@@ -196,7 +196,7 @@ int agcProcess(int16_t *buffer, uint32_t sampleRate, size_t samplesCount, int16_
         memcpy(input, out_buffer, samples * sizeof(int16_t));
         input += samples;
     }
-
+    //Final chunk of audio that is less than 1 frame in size, if any
     const size_t remainedSamples = samplesCount - nTotal * samples;
     if (remainedSamples > 0) {
         if (nTotal > 0) {
