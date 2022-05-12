@@ -18,7 +18,7 @@
 
 #include <stdint.h>  // NOLINT(build/include)
 #include <string.h>
-
+#include <assert.h>
 // allpass filter coefficients.
 static const uint16_t kResampleAllpass1[3] = {3284, 24441, 49528};
 static const uint16_t kResampleAllpass2[3] = {12199, 37471, 60255};
